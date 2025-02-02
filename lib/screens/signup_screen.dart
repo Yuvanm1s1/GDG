@@ -174,38 +174,61 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Sign Up",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black, // Black text for the app bar title
-          ),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.black, // Black color for the back button
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 51, 85, 255), size: 30),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          color: Colors.white, // White background
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.1, 20, 0),
-            child: Column(
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start, // Aligns the text to the left
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                    "Create Account",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 51, 85, 255),
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Roboto",
+                      fontSize: 30,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "Sign up to get started",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Roboto",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              Column(
               children: <Widget>[
                 const SizedBox(height: 20),
 
                 // Logo Widget
                 logoWidget("assets/images/logo1.png"),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
 
                 // Sign Up Title
                 const Text(
@@ -270,7 +293,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print("Error ${error.toString()}");
                   });
                 }),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
 
                 // Already have an account? Login
                 Row(
@@ -287,18 +310,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: const Text(
                         " Login",
                         style: TextStyle(
-                          color: Colors.blue, // Blue text for the login link
+                          color: Color.fromARGB(255, 51, 85, 255), // Blue text for the login link
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+                SizedBox(height: 30),
+              ])
+            ],
+          ),
           ),
         ),
-      ),
     );
   }
 }

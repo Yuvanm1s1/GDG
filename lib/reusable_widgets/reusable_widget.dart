@@ -139,8 +139,8 @@ Image logoWidget(String imageName) {
   return Image.asset(
     imageName,
     fit: BoxFit.fitWidth,
-    width: 240,
-    height: 240,
+    width: 350,
+    height: 250,
     
   );
 }
@@ -181,12 +181,12 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.blue, // Blue cursor
+    cursorColor: Color.fromARGB(255, 51, 85, 255), // Blue cursor
     style: TextStyle(color: Colors.black), // Black text
     decoration: InputDecoration(
       prefixIcon: Icon(
         icon,
-        color: Colors.blue, // Blue icon
+        color: Color.fromARGB(255, 51, 85, 255), // Blue icon
       ),
       labelText: text,
       labelStyle: TextStyle(color: Colors.black54), // Dark gray label
@@ -239,7 +239,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
         onTap();
       },
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blue), // Blue button
+          backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 51, 85, 255)), // Blue button
           foregroundColor: MaterialStateProperty.all(Colors.white), // White text
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),

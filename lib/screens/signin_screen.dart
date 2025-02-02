@@ -313,17 +313,55 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          color: Colors.white, // White background
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 51, 85, 255), size: 30),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.15, 20, 0),
-            child: Column(
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start, // Aligns the text to the left
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                    "Login Account",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 51, 85, 255),
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Roboto",
+                      fontSize: 30,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "Welcome Back!",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Roboto",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              Column(
               children: <Widget>[
                 // Logo Widget
                 logoWidget("assets/images/logo1.png"),
@@ -376,7 +414,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           _keepMeLoggedIn = value!;
                         });
                       },
-                      activeColor: Colors.blue, // Blue checkbox
+                      activeColor: Color.fromARGB(255, 51, 85, 255), // Blue checkbox
                       checkColor: Colors.white, // White checkmark
                     ),
                     const Text(
@@ -389,7 +427,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                 // Forgot Password
                 forgetPassword(context),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
                 // Login Button
                 firebaseUIButton(context, "Login", () {
@@ -407,13 +445,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     print("Error ${error.toString()}");
                   });
                 }),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
 
                 // Sign Up Option
                 signUpOption(),
-              ],
-            ),
-          ),
+                const SizedBox(height: 20),
+              ])
+            ],
+          )
         ),
       ),
     );
@@ -437,7 +476,7 @@ class _SignInScreenState extends State<SignInScreen> {
           child: const Text(
             " Sign Up",
             style: TextStyle(
-              color: Colors.blue, // Blue text for the "Sign Up" link
+              color: Color.fromARGB(255, 51, 85, 255), // Blue text for the "Sign Up" link
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -454,7 +493,7 @@ class _SignInScreenState extends State<SignInScreen> {
       child: TextButton(
         child: const Text(
           "Forgot Password?",
-          style: TextStyle(color: Colors.blue), // Blue text for the link
+          style: TextStyle(color: Color.fromARGB(255, 51, 85, 255)), // Blue text for the link
           textAlign: TextAlign.right,
         ),
         onPressed: () => Navigator.push(
