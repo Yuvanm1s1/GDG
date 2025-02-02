@@ -97,7 +97,7 @@ Widget build(BuildContext context) {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, bottom: 20),
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -106,7 +106,6 @@ Widget build(BuildContext context) {
                     height: 400, 
                     width: 300,  
                   ),
-                  SizedBox(height: 5),
                   Text("Upload File", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   SizedBox(height: 10),
                   Text(

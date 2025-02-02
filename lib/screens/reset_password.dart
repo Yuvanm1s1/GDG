@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/utils/color_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -15,44 +16,80 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Reset Password",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 51, 85, 255), size: 30),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
-      body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
+      body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("Enter Email Id", Icons.person_outline, false,
-                    _emailTextController),
-                const SizedBox(
-                  height: 20,
-                ),
-                firebaseUIButton(context, "Reset Password", () {
-                  FirebaseAuth.instance
-                      .sendPasswordResetEmail(email: _emailTextController.text)
-                      .then((value) => Navigator.of(context).pop());
-                })
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                mainAxisAlignment: MainAxisAlignment.start, // Aligns the text to the left
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 51, 85, 255),
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Roboto",
+                      fontSize: 30,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "No worries, we got you!",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Roboto",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+                 Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SvgPicture.asset(
+                    'assets/images/forgot_password.svg',  
+                    height: 400, 
+                    width: 300,  
+                  ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    reusableTextField("Enter Email Id", Icons.person_outline, false,
+                        _emailTextController),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    firebaseUIButton(context, "Reset Password", () {
+                      FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: _emailTextController.text)
+                          .then((value) => Navigator.of(context).pop());
+                    })
+                  ],
+                )
               ],
-            ),
           ))),
     );
   }

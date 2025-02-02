@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/screens/dashboard_screen.dart';
+import 'package:flutter_application_1/screens/upload_screen.dart';
 import 'screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
