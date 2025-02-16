@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
+  final Map<String, dynamic> data; // Accept JSON data
+
+  const DashboardScreen({Key? key, required this.data}) : super(key: key);
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -87,36 +90,94 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(child: StatCard(title: 'Chapter', value: '1')),
+            Expanded(child: StatCard(title: 'Chapter', value: widget.data["Best Matched GDPR Rule"][0].toString())),
             SizedBox(width: 10),
-            Expanded(child: StatCard(title: 'Article No.', value: '10')),
+            Expanded(child: StatCard(title: 'Article No.', value: widget.data["Best Matched GDPR Rule"][1].toString())),
           ],
         ),
         SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: StatCard(title: 'Sub Article', value: '32')),
+            Expanded(child: StatCard(title: 'Sub Article', value: widget.data["Best Matched GDPR Rule"][2].toString())),
             SizedBox(width: 10),
-            Expanded(child: StatCard(title: 'Score', value: '90')),
+            Expanded(child: StatCard(title: 'Score', value: (widget.data["Similarity Score"] as num?)?.toStringAsFixed(3) ?? "0.000")),
           ],
         ),
 
         SizedBox(height: 20),
         // Placeholder for additional content (e.g. charts, reports)
-        Container(
-          height: 300, // Specify height here
-          decoration: BoxDecoration(
-            color: Colors.blueGrey[50],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Text(
-              'Additional content or charts here',
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 4),
             ),
-          ),
+          ],
         ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "GDPR Summary",
+              style: TextStyle(
+                color: Color.fromARGB(255, 51, 85, 255),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              widget.data["GDPR Summary"].replaceAll('*', ''),
+              style: TextStyle(fontSize: 14, color: Colors.black87),
+              softWrap: true,
+            ),
+          ],
+        ),
+      ),
+
+      SizedBox(height: 20),
+      // Gemini Analysis Section
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Gemini Analysis",
+              style: TextStyle(
+                color: Color.fromARGB(255, 51, 85, 255),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              widget.data["Gemini Analysis"].replaceAll('*', ''),
+              style: TextStyle(fontSize: 14, color: Colors.black87),
+              softWrap: true,
+            ),
+          ],
+        ),
+      ),
         SizedBox(height: 20),
       ],
     ),

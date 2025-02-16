@@ -1,7 +1,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/dashboard_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 
 class UploadScreen extends StatefulWidget {
@@ -19,7 +23,7 @@ class _UploadScreenState extends State<UploadScreen> {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
         type: FileType.custom,
-        allowedExtensions: ['jpg','png','doc','pdf']
+        allowedExtensions: ['jpg','png','doc','pdf','txt']
       );
 
       if (result != null) {
@@ -32,6 +36,43 @@ class _UploadScreenState extends State<UploadScreen> {
     } catch (e) {
       print("File picking error: $e");
     }
+  }
+
+  Future<void> uploadFile() async {
+    if (selectedFiles.isEmpty) {
+      print("no files selected");
+      return;
+    }
+
+    File firstFile = selectedFiles.first;
+    String fileName = firstFile.path.split('/').last;
+
+    var request = http.MultipartRequest('POST',Uri.parse('http://10.0.2.2:8000/gdpr/check'))
+      ..headers.addAll({
+        "access_token": "f3a5d7c8e9b2a1f0d4c6e7b8a9f2d3c5e6a7b9c0d1e2f3a4c5b6d7e8f9a0b1c2"
+      })
+      ..files.add(
+      await http.MultipartFile.fromPath('file',firstFile.path)
+    );
+
+    var response = await request.send();
+
+  if (response.statusCode == 200) {
+    var responseBody = await response.stream.bytesToString();
+    Map<String, dynamic> jsonResponse = json.decode(responseBody);
+
+    print("JSON Response: $jsonResponse");
+
+    // Navigate to Dashboard Screen with response data
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardScreen(data: jsonResponse),
+      ),
+    );
+  } else {
+    print("Error: ${response.statusCode}");
+  }
   }
 
   void removeFile(int index){
@@ -174,9 +215,7 @@ Widget build(BuildContext context) {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: selectedFiles.isNotEmpty ? () {
-                  // Action here when files are present
-                } : null, // Disabled when no files are selected
+                onPressed: selectedFiles.isNotEmpty ? uploadFile : null, // Disabled when no files are selected
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 4), // Padding
                   shape: RoundedRectangleBorder(
